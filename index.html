@@ -1,0 +1,329 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>game of autism</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: #000000;
+		}
+		#fps {
+			color:white;
+			position:absolute;
+		}
+		canvas {
+		
+		width:100%;
+		height:100%;}
+		
+		
+		#revs {
+		position:absolute;
+		  width: 80%;
+	top: 10px;
+			
+  
+
+		}
+		
+input[type=range].vertical
+{
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical; /* WebKit */
+ 
+}
+		
+	</style>
+	<script src="pixi.js"></script>
+	
+	<script>
+	//STATS
+	// stats.js - http://github.com/mrdoob/stats.js
+var Stats=function(){var l=Date.now(),m=l,g=0,n=Infinity,o=0,h=0,p=Infinity,q=0,r=0,s=0,f=document.createElement("div");f.id="stats";f.addEventListener("mousedown",function(b){b.preventDefault();t(++s%2)},!1);f.style.cssText="width:80px;opacity:0.9;cursor:pointer";var a=document.createElement("div");a.id="fps";a.style.cssText="padding:0 0 3px 3px;text-align:left;background-color:#002";f.appendChild(a);var i=document.createElement("div");i.id="fpsText";i.style.cssText="color:#0ff;font-family:Helvetica,Arial,sans-serif;font-size:9px;font-weight:bold;line-height:15px";
+i.innerHTML="FPS";a.appendChild(i);var c=document.createElement("div");c.id="fpsGraph";c.style.cssText="position:relative;width:74px;height:30px;background-color:#0ff";for(a.appendChild(c);74>c.children.length;){var j=document.createElement("span");j.style.cssText="width:1px;height:30px;float:left;background-color:#113";c.appendChild(j)}var d=document.createElement("div");d.id="ms";d.style.cssText="padding:0 0 3px 3px;text-align:left;background-color:#020;display:none";f.appendChild(d);var k=document.createElement("div");
+k.id="msText";k.style.cssText="color:#0f0;font-family:Helvetica,Arial,sans-serif;font-size:9px;font-weight:bold;line-height:15px";k.innerHTML="MS";d.appendChild(k);var e=document.createElement("div");e.id="msGraph";e.style.cssText="position:relative;width:74px;height:30px;background-color:#0f0";for(d.appendChild(e);74>e.children.length;)j=document.createElement("span"),j.style.cssText="width:1px;height:30px;float:left;background-color:#131",e.appendChild(j);var t=function(b){s=b;switch(s){case 0:a.style.display=
+"block";d.style.display="none";break;case 1:a.style.display="none",d.style.display="block"}};return{REVISION:11,domElement:f,setMode:t,begin:function(){l=Date.now()},end:function(){var b=Date.now();g=b-l;n=Math.min(n,g);o=Math.max(o,g);k.textContent=g+" MS ("+n+"-"+o+")";var a=Math.min(30,30-30*(g/200));e.appendChild(e.firstChild).style.height=a+"px";r++;b>m+1E3&&(h=Math.round(1E3*r/(b-m)),p=Math.min(p,h),q=Math.max(q,h),i.textContent=h+" FPS ("+p+"-"+q+")",a=Math.min(30,30-30*(h/100)),c.appendChild(c.firstChild).style.height=
+a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
+	</script>
+	
+	
+</head>
+<body>
+	<div id="fps">
+	</div>
+	<!-- <input id="revs" type="range" min="0" max="1000" step="1" /> -->
+	
+	<script>
+	//paths to pics (data strings here)
+	const ES = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABOtJREFUeNrkV81rXUUUPzP3vveSvEBS41P8bohSqC6iKbiooLhxpWSrO8E/oCtFLbhyIbQYUEFx4cY/oN246qJ140KFSAWtoJuAUoWatMnLzf2Y4zlnPu5M733ZduENk5k3M3fOb875nd/MVYgI9/LRcI+f3DeUUnD29c+XAHELATepaxnEO2gr8G3nMT8Wt/28njF6dundS1Sf++Hyu3t+HeUbL7zxBRu/OjfK19ceX4H5uYGDRgsZEMOGi0FojAl1w3Vj2uJ+11Eft+u6guJwSms127TaS99ffm8v8QDvnI2f3TgJw0FOHrFe8SDIFpXUYF3bxatQN9LHNZeS+6sGFLWV1lQyONzfWzdotmjRNxMOsNuffOJ+GA1zyLSCPNNSBrmGYZ5Rf0bAbOG+nPoyqjOak+VK3uGiuTjwqt0dtVE2lQ9GvNnNDgc45gvzA3lZu4V4QVnIrWQrcj8Z1RQXHjdU9nYLuHNQgvEh4BA1LkQNc8MIAA6jW2u5C4AGV5YXxIx3f1ssBxiBCkAA9qclXP/tJry48RCcOb0qbtaKwbO72RNa+j747FsYZExOAkJ9cepHHkBH1qRHgPF8Jp0QzxGRF/n1j3/g/bc2YO2xE7C4uAij0SiA7iyEPoNCVqQAEP08biiphf3QZgC70wO5vV/A+qkVMT6ZTGA4HMrOE7sC1rgUNeIBxHSjOoYpRjnKDq0YNT6l2phy/fetA3L7gzAej8V4nucCIC5ZlgVQ6D0gNmaEgA0qgwl77Tso5AppaKx3xgtDcTsb8s83127AR19eExJ7o8p5wG7QzAqB27WxTMXGsg1NLEAOhMt5TzjLbgv706+/gwfum6c5pAVVTfOoVFYfbBjSEMRpCDt/3ZZdLczllOs25zExjkGIGNQzT03EcBz7o7KC8bwWoNZjHEIG0EhtTNPvAUZWElJD5JoeanEh/3lNkPSjf00AgTbd7mI8j+1PC1HAsqrEU6apBUwIw6w0ZLScpyI2xqYT1hhemhaVFH6/OKoC2RIABOywMC5btEWtOaRHgYT9HACb64SX5iiJb5vCFsDBtILNl9dg9dElEZk+D1x4+xWrmk6Uft+5BR9/dTXEX+q+45gHWUpZAwyqoOWWMxjIeGp1As89/YgwnwunX/w8v37S5b5V059u3KTdV60QBS/0hKAmI5oV12WCkgRKj2I2GOd97y0n6t/+5U8KS+nibuxmZimhEMUJvkpUFJ0WGKvxPbGf9fz4845zu1dBMysNLbNlVMXHgxMjY+t3Ll6x4aL2J+dfhWdPP5wYpFsVXzoC0Zr6KHE/ziIhuB3GZxJiq4TGvUjyIGBY0Mqy7OyYjVdHdxLSJQQ8VoqN3ZlHKmHBNg3lRZfPTFS5HdDvNBx4l3GM2O+kuC8E6ESkleR254jdRZU763ufaL6cgNGF9tgQeNkVowaT3UNQMXusgrZa0Tn7/ZEe+I7RMWw6aZgcx1VVth6IXR8Zx6hf9QhRSLfIYELA4JHuh8kun2DGhjmQL4lh5AkvNP0RwIhHvQTc7QDgj4aymLpDIyZQSqSwM4jvDcdxoL0D2FrGL/V54Bx/NBQH/9JJVpAsV0nsQhaEuM76pox3a8Lc6Itqm22FL7L4MnHmtQ+XaOqWu7cvB8YiBOPuppqy2YPzY1E7cbv7NLt+5UL30+x/+3X8nwADAGdc48ttRnltAAAAAElFTkSuQmCC';
+	const PONY = 'data:image/png;base64,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';
+	const FEDORA = 'data:image/png;base64,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';
+	const CHAN = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABOtJREFUeNrkV81rXUUUPzP3vveSvEBS41P8bohSqC6iKbiooLhxpWSrO8E/oCtFLbhyIbQYUEFx4cY/oN246qJ140KFSAWtoJuAUoWatMnLzf2Y4zlnPu5M733ZduENk5k3M3fOb875nd/MVYgI9/LRcI+f3DeUUnD29c+XAHELATepaxnEO2gr8G3nMT8Wt/28njF6dundS1Sf++Hyu3t+HeUbL7zxBRu/OjfK19ceX4H5uYGDRgsZEMOGi0FojAl1w3Vj2uJ+11Eft+u6guJwSms127TaS99ffm8v8QDvnI2f3TgJw0FOHrFe8SDIFpXUYF3bxatQN9LHNZeS+6sGFLWV1lQyONzfWzdotmjRNxMOsNuffOJ+GA1zyLSCPNNSBrmGYZ5Rf0bAbOG+nPoyqjOak+VK3uGiuTjwqt0dtVE2lQ9GvNnNDgc45gvzA3lZu4V4QVnIrWQrcj8Z1RQXHjdU9nYLuHNQgvEh4BA1LkQNc8MIAA6jW2u5C4AGV5YXxIx3f1ssBxiBCkAA9qclXP/tJry48RCcOb0qbtaKwbO72RNa+j747FsYZExOAkJ9cepHHkBH1qRHgPF8Jp0QzxGRF/n1j3/g/bc2YO2xE7C4uAij0SiA7iyEPoNCVqQAEP08biiphf3QZgC70wO5vV/A+qkVMT6ZTGA4HMrOE7sC1rgUNeIBxHSjOoYpRjnKDq0YNT6l2phy/fetA3L7gzAej8V4nucCIC5ZlgVQ6D0gNmaEgA0qgwl77Tso5AppaKx3xgtDcTsb8s83127AR19eExJ7o8p5wG7QzAqB27WxTMXGsg1NLEAOhMt5TzjLbgv706+/gwfum6c5pAVVTfOoVFYfbBjSEMRpCDt/3ZZdLczllOs25zExjkGIGNQzT03EcBz7o7KC8bwWoNZjHEIG0EhtTNPvAUZWElJD5JoeanEh/3lNkPSjf00AgTbd7mI8j+1PC1HAsqrEU6apBUwIw6w0ZLScpyI2xqYT1hhemhaVFH6/OKoC2RIABOywMC5btEWtOaRHgYT9HACb64SX5iiJb5vCFsDBtILNl9dg9dElEZk+D1x4+xWrmk6Uft+5BR9/dTXEX+q+45gHWUpZAwyqoOWWMxjIeGp1As89/YgwnwunX/w8v37S5b5V059u3KTdV60QBS/0hKAmI5oV12WCkgRKj2I2GOd97y0n6t/+5U8KS+nibuxmZimhEMUJvkpUFJ0WGKvxPbGf9fz4845zu1dBMysNLbNlVMXHgxMjY+t3Ll6x4aL2J+dfhWdPP5wYpFsVXzoC0Zr6KHE/ziIhuB3GZxJiq4TGvUjyIGBY0Mqy7OyYjVdHdxLSJQQ8VoqN3ZlHKmHBNg3lRZfPTFS5HdDvNBx4l3GM2O+kuC8E6ESkleR254jdRZU763ufaL6cgNGF9tgQeNkVowaT3UNQMXusgrZa0Tn7/ZEe+I7RMWw6aZgcx1VVth6IXR8Zx6hf9QhRSLfIYELA4JHuh8kun2DGhjmQL4lh5AkvNP0RwIhHvQTc7QDgj4aymLpDIyZQSqSwM4jvDcdxoL0D2FrGL/V54Bx/NBQH/9JJVpAsV0nsQhaEuM76pox3a8Lc6Itqm22FL7L4MnHmtQ+XaOqWu7cvB8YiBOPuppqy2YPzY1E7cbv7NLt+5UL30+x/+3X8nwADAGdc48ttRnltAAAAAElFTkSuQmCC';
+	
+	//renderer size
+	const WIDTH = 800;
+	const HEIGHT = 600;
+	
+	var generationCounter = 0;
+	
+	//stats initialization
+	window.stats = new Stats();
+	document.body.appendChild( stats.domElement );
+	stats.domElement.style.position = "absolute";
+	stats.domElement.style.top = "0px";
+
+	//create 2 global matrices for game of life!
+	//first one indicates the type of each element, second one has their handles
+	/*
+	numbers 0-4 indicate which type each element is:
+	0 - ES
+	1 - PONY
+	2 - FEDORA
+	3 - CHAN4
+	elements are like this: 
+	0|1
+	2|3
+	*/
+	var globalTypeArray = new Array();
+	for(var i = 0;i < HEIGHT/20;i++){
+		globalTypeArray.push(new Array());
+		for(var j = 0;j < WIDTH/20;j++){
+			if(j < WIDTH/40)
+				if(i < HEIGHT/40)
+					globalTypeArray[i].push(0);
+				else
+					globalTypeArray[i].push(2);
+			else
+				if(i < HEIGHT/40)
+					globalTypeArray[i].push(1);
+				else
+					globalTypeArray[i].push(3);
+		}
+	}
+	var globalHandleArray = new Array();
+	for(var i = 0;i < HEIGHT/20;i++){
+		globalHandleArray.push(new Array());
+		for(var j = 0;j < WIDTH/20;j++){
+			globalHandleArray[i].push(null);
+		}
+	}
+console.log("globalArray initialized: "+globalTypeArray.length);
+	
+	// create an new instance of a pixi stage
+	var stage = new PIXI.Stage(0x555555);
+
+	// create a renderer instance
+	//var renderer = new PIXI.WebGLRenderer(400, 300);
+	var renderer = new PIXI.autoDetectRenderer(WIDTH, HEIGHT);
+
+	// add the renderer view element to the DOM
+	document.body.appendChild(renderer.view);
+
+	//start animation loop
+	requestAnimFrame( animate );
+
+	// create a sprite from an image path
+
+	var esTexture = addTextureToPoint(100,200,ES);
+	var fedoraTexture = addTextureToPoint(200,140,FEDORA);
+	var ponyTexture = addTextureToPoint(200,300,PONY);
+	var chanTexture = addTextureToPoint(200,200,CHAN);
+	
+
+		
+		
+		//set new textures
+		console.log(PIXI.TextureCache);
+		for(var i = 0; i < globalTypeArray.length;i++){
+			for(var j = 0;j < globalTypeArray[i].length;j++){
+				switch(globalTypeArray[i][j]){
+					case 0:
+						globalHandleArray[i][j] = addTextureToPoint(20*j,20*i,ES);
+						break;
+					case 1:
+						globalHandleArray[i][j] = addTextureToPoint(20*j,20*i,FEDORA);
+						break;
+					case 2:
+						globalHandleArray[i][j]= addTextureToPoint(20*j,20*i,PONY);
+						break;
+					case 3:
+						globalHandleArray[i][j] = addTextureToPoint(20*j,20*i,CHAN);
+						break;
+					default: 
+						//throw new Error("error with globalArray:"+globalTypeArray[i][j] +","+ i +","+ j);
+						break;
+				}
+			}
+		}
+	
+		for(var i in PIXI.TextureCache)
+			if(PIXI.TextureCache.hasOwnProperty(i))
+				console.log(PIXI.TextureCache[i].valid);
+		
+	/*	for(var i = 0; i < globalHandleArray.length;i++){
+			if(globalHandleArray[i])
+				globalHandleArray[i].destroy(false);
+		}
+		for(var i in PIXI.TextureCache)
+			if(PIXI.TextureCache.hasOwnProperty(i))
+				console.log(PIXI.TextureCache[i].valid);
+		
+		for(var i = 0; i < globalHandleArray.length;i++){
+			if(globalHandleArray[i])
+				globalHandleArray[i].destroy(true);
+		}
+	*/
+		for(var i in PIXI.TextureCache)
+			if(PIXI.TextureCache.hasOwnProperty(i))
+				console.log(PIXI.TextureCache[i].valid);
+		
+		for(var i in PIXI.TextureCache)
+			if(PIXI.TextureCache.hasOwnProperty(i))
+				console.log(PIXI.TextureCache[i].valid);
+		
+	function animate() {
+		stats.begin();
+		
+		
+		console.log(generationCounter);
+		console.log(globalHandleArray);
+		if(generationCounter < globalHandleArray.length*globalHandleArray[0].length){
+			console.log(globalHandleArray[Math.floor(generationCounter/globalHandleArray.length)][globalHandleArray.length % generationCounter]);
+			stage.removeChild(globalHandleArray[Math.floor(generationCounter/globalHandleArray.length)][globalHandleArray.length % generationCounter]);
+		}
+		else{
+			for(var i = 0; i < globalTypeArray.length;i++){
+				for(var j = 0;j < globalTypeArray[i].length;j++){
+					switch(globalTypeArray[i][j]){
+						case 0:
+							globalHandleArray[i][j] = addTextureToPoint(20*j,20*i,ES);
+							break;
+						case 1:
+							globalHandleArray[i][j] = addTextureToPoint(20*j,20*i,FEDORA);
+							break;
+						case 2:
+							globalHandleArray[i][j]= addTextureToPoint(20*j,20*i,PONY);
+							break;
+						case 3:
+							globalHandleArray[i][j] = addTextureToPoint(20*j,20*i,CHAN);
+							break;
+						default: 
+							//throw new Error("error with globalArray:"+globalTypeArray[i][j] +","+ i +","+ j);
+							break;
+					}
+				}
+			}
+			generationCounter = 0;
+		}
+		
+	    //console.log(beta);
+	//	if(beta){
+	//		plane.rotation = -beta * Math.PI/90/1.7;
+
+	//	}
+	//   	rotorRotation += document.getElementById("revs").value *Math.PI/2000;
+	 //  	rotor.rotation = plane.rotation + rotorRotation;
+	    
+	    // console.log(document.getElementById("revs").value *Math.PI/2000);
+	    //console.log(plane.rotation);
+	    // render the stage
+		generationCounter++;
+		requestAnimFrame( animate );
+	    renderer.render(stage);  
+		stats.end();
+	}
+	
+	/**
+	* 
+	*takes in filename (atleast png/base64 png)
+	*adds sprite to point, hope you made sure that it is in the view
+	*returns handle to sprite
+	*/
+	function addTextureToPoint(x,y,filename){
+		// create a texture from an image path
+		var texture = PIXI.Texture.fromImage(filename);
+		// create a new Sprite using the texture
+		var sprite = new PIXI.Sprite(texture);
+
+		// center the sprites anchor point
+		sprite.anchor.x = 0.5;
+		sprite.anchor.y = 0.5;
+	//console.log(renderer);
+		// move the sprite t the requested point
+		sprite.position.x = x;
+		sprite.position.y = y;
+
+		stage.addChild(sprite);
+		return sprite;
+	}
+	/**
+	* 
+	*takes in filename (atleast png)
+	*adds sprite to center of scene
+	*returns handle to sprite
+	*/
+	function addTextureToCenter(filename){
+		// create a texture from an image path
+		var texture = PIXI.Texture.fromImage(filename);
+		// create a new Sprite using the texture
+		var sprite = new PIXI.Sprite(texture);
+
+		// center the sprites anchor point
+		sprite.anchor.x = 0.5;
+		sprite.anchor.y = 0.5;
+	console.log(renderer);
+		// move the sprite t the center of the screen
+		sprite.position.x = renderer.width/2;
+		sprite.position.y = renderer.height/2;
+ 
+		stage.addChild(sprite);
+		return sprite;
+	}
+	
+	function check(x,y){
+	}
+	
+	
+	</script>
+	<script>
+	/*
+	{
+		var gamma,alpha,beta;
+		gamma = alpha = beta = 0;
+		var lastUpdate = 0;
+		// Listen for the deviceorientation event and handle the raw data
+		window.addEventListener('deviceorientation', function(eventData) {
+			var time = new Date();
+			if (time - lastUpdate <= 70)
+				return;
+			else
+				lastUpdate = time;
+			// gamma is the left-to-right tilt in degrees, where right is positive
+			//gamma = eventData.gamma;
+
+			// beta is the front-to-back tilt in degrees, where front is positive
+			beta = eventData.beta;
+			
+			//TODO: REMOVE
+			//$('#name').html(beta*5+"");
+			
+			//beta is 0-90 when tilting to right
+			//beta is -90-0 when tilting to left
+			
+
+		// alpha is the compass direction the device is facing in degrees
+			//alpha = eventData.alpha
+			
+			//value passed to rotateWheel must be positive to prevent graphical bugs
+			
+		
+		}, true);
+	}
+	*/
+
+
+	</script>
+	</body>
+</html>
