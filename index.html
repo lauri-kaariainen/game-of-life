@@ -36,7 +36,7 @@ input[type=range].vertical
 }
 		
 	</style>
-	<script src="pixi.js"></script>
+	<script src="pixi.dev.js"></script>
 	
 	<script>
 	//STATS
@@ -185,13 +185,18 @@ console.log("globalArray initialized: "+globalTypeArray.length);
 		
 	function animate() {
 		stats.begin();
-		
-		
+		console.log(globalHandleArray[0][0]);
+		console.log(stage);
+		alert(stage.getChildIndex(globalHandleArray[0][0]));
 		console.log(generationCounter);
 		console.log(globalHandleArray);
 		if(generationCounter < globalHandleArray.length*globalHandleArray[0].length){
-			console.log(globalHandleArray[Math.floor(generationCounter/globalHandleArray.length)][globalHandleArray.length % generationCounter]);
-			stage.removeChild(globalHandleArray[Math.floor(generationCounter/globalHandleArray.length)][globalHandleArray.length % generationCounter]);
+			if(generationCounter === 0)
+				stage.removeChild(globalHandleArray[0][0]);
+			else{
+				console.log("globalHandleArray["+Math.floor(generationCounter/globalHandleArray.length)+"]["+globalHandleArray.length % generationCounter+"]");
+				stage.removeChild(globalHandleArray[Math.floor(generationCounter/globalHandleArray.length)][globalHandleArray.length % generationCounter]);
+			}
 		}
 		else{
 			for(var i = 0; i < globalTypeArray.length;i++){
@@ -255,8 +260,8 @@ console.log("globalArray initialized: "+globalTypeArray.length);
 		sprite.position.x = x;
 		sprite.position.y = y;
 
-		stage.addChild(sprite);
-		return sprite;
+		return stage.addChild(sprite);
+		
 	}
 	/**
 	* 
@@ -278,8 +283,9 @@ console.log("globalArray initialized: "+globalTypeArray.length);
 		sprite.position.x = renderer.width/2;
 		sprite.position.y = renderer.height/2;
  
-		stage.addChild(sprite);
-		return sprite;
+		
+		return stage.addChild(sprite);
+		
 	}
 	
 	function check(x,y){
