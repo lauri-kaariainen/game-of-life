@@ -109,8 +109,8 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 			globalHandleArray[i].push(null);
 		}
 	}
-console.log("globalTYPEArray initialized: "+globalTypeArray.length+","+globalTypeArray[0].length);
-console.log("globalHANDLEArray initialized: "+globalHandleArray.length+","+globalHandleArray[0].length);
+//console.log("globalTYPEArray initialized: "+globalTypeArray.length+","+globalTypeArray[0].length);
+//console.log("globalHANDLEArray initialized: "+globalHandleArray.length+","+globalHandleArray[0].length);
 
 	// create an new instance of a pixi stage
 	var stage = new PIXI.Stage(0x555555);
@@ -128,7 +128,7 @@ console.log("globalHANDLEArray initialized: "+globalHandleArray.length+","+globa
 
 	
 	//set new textures
-	console.log(PIXI.TextureCache);
+	//console.log(PIXI.TextureCache);
 	for(var i = 0; i < globalTypeArray.length;i++){
 		for(var j = 0;j < globalTypeArray[i].length;j++){
 			switch(globalTypeArray[i][j]){
@@ -152,25 +152,25 @@ console.log("globalHANDLEArray initialized: "+globalHandleArray.length+","+globa
 	}
 	
 	
-//console.log(globalHandleArray);
-//console.log(getRandomElem());
+////console.log(globalHandleArray);
+////console.log(getRandomElem());
 	var calculateFrame = false;
 	var drawFrame = true;
 	function animate() {
-		if(drawFrame)
-			console.log("drawFrame");
-		if(calculateFrame)
-			console.log("calcFrame");
+		//if(drawFrame)
+			//console.log("drawFrame");
+		//if(calculateFrame)
+			//console.log("calcFrame");
 		stats.begin();
-		//console.log(globalHandleArray[0][0]);
-		//console.log(stage);
+		////console.log(globalHandleArray[0][0]);
+		////console.log(stage);
 		//alert(stage.getChildIndex(globalHandleArray[0][0]));
-		//console.log(generationCounter);
-		//console.log(globalHandleArray);
+		////console.log(generationCounter);
+		////console.log(globalHandleArray);
 		
 		
 		if(calculateFrame){
-	console.log("going to calculate..");
+	//console.log("going to calculate..");
 			//make the calculations base on old array, so it won't evolve in the same calc turn
 			var newGlobalTypeArray = [];
 			
@@ -181,21 +181,21 @@ console.log("globalHANDLEArray initialized: "+globalHandleArray.length+","+globa
 				for(var j = 0;j < globalTypeArray[i].length;j++){
 					var surroundingType = mostSurroundingForeignElemType(j,i);
 					//50% chance to change
-					if(surroundingType !== -1 && Math.floor((Math.random() * 4)) === 0){
-	console.log("change happened to type "+surroundingType);
+					if(surroundingType !== -1 && Math.floor((Math.random() * 10)) === 0){
+	//console.log("change happened to type "+surroundingType);
 						newGlobalTypeArray[i][j] = surroundingType;
 					}
 					else
 						newGlobalTypeArray[i][j] = globalTypeArray[i][j];	
 				}
 			}
-			console.log("calculate compelete!");
+			//console.log("calculate compelete!");
 			globalTypeArray = newGlobalTypeArray;
 			drawFrame = true;
 			calculateFrame = false;
 		}
 		else if(drawFrame){
-			console.log("going to draw..");
+			//console.log("going to draw..");
 			
 			//remove old sprites
 			stage.removeChildren(0,WIDTH*HEIGHT/400);
@@ -223,7 +223,7 @@ console.log("globalHANDLEArray initialized: "+globalHandleArray.length+","+globa
 					}
 				}
 			}
-			 console.log("drawing complete!");
+			 //console.log("drawing complete!");
 			 renderer.render(stage);  
 			 drawFrame = false;
 			 calculateFrame = true;
@@ -231,7 +231,7 @@ console.log("globalHANDLEArray initialized: "+globalHandleArray.length+","+globa
 		
 	
 	
-	    //console.log(beta);
+	    ////console.log(beta);
 	//	if(beta){
 	//		plane.rotation = -beta * Math.PI/90/1.7;
 
@@ -239,8 +239,8 @@ console.log("globalHANDLEArray initialized: "+globalHandleArray.length+","+globa
 	//   	rotorRotation += document.getElementById("revs").value *Math.PI/2000;
 	 //  	rotor.rotation = plane.rotation + rotorRotation;
 	    
-	    // console.log(document.getElementById("revs").value *Math.PI/2000);
-	    //console.log(plane.rotation);
+	    // //console.log(document.getElementById("revs").value *Math.PI/2000);
+	    ////console.log(plane.rotation);
 	    // render the stage
 		generationCounter++;
 		requestAnimFrame( animate );
@@ -263,7 +263,7 @@ console.log("globalHANDLEArray initialized: "+globalHandleArray.length+","+globa
 		// center the sprites anchor point
 		sprite.anchor.x = 0.5;
 		sprite.anchor.y = 0.5;
-	//console.log(renderer);
+	////console.log(renderer);
 		// move the sprite t the requested point
 		sprite.position.x = x;
 		sprite.position.y = y;
@@ -286,7 +286,7 @@ console.log("globalHANDLEArray initialized: "+globalHandleArray.length+","+globa
 		// center the sprites anchor point
 		sprite.anchor.x = 0.5;
 		sprite.anchor.y = 0.5;
-	console.log(renderer);
+	//console.log(renderer);
 		// move the sprite t the center of the screen
 		sprite.position.x = renderer.width/2;
 		sprite.position.y = renderer.height/2;
@@ -303,24 +303,24 @@ console.log("globalHANDLEArray initialized: "+globalHandleArray.length+","+globa
 	function mostSurroundingForeignElemType(x,y){
 	
 		var checkArray = checkUpperElems(x,y).concat(checkSideElems(x,y)).concat(checkLowerElems(x,y));
-	console.log(checkArray);
+	//console.log(checkArray);
 		var checkArrayFiltered = checkArray.filter(function(elem){return elem !== globalTypeArray[y][x]});
 		
-		console.log(checkArrayFiltered);
+		//console.log(checkArrayFiltered);
 		//change to obj for easier counting (thank you ECMA5 for not supporting functional ways)
 		var countObj = {};
 		for(var i = 0; i < checkArrayFiltered.length;i++) countObj[checkArrayFiltered[i]] = countObj[checkArrayFiltered[i]] + 1 || 1;
-		console.log(countObj);
+		//console.log(countObj);
 		var countArray = [];
 		for(var i in countObj){
 			if(countObj.hasOwnProperty(i)){
 				 countArray.push({type:i,amount:countObj[i]});
 			}
 		}
-		console.log(countArray);
+		//console.log(countArray);
 		//sort to get the most amount
 		countArray.sort(function(a,b){return b.amount - a.amount});
-		console.log(countArray);
+		//console.log(countArray);
 		if(countArray.length > 0)
 			return parseInt(countArray[0].type);
 		else
