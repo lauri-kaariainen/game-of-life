@@ -174,20 +174,23 @@ console.log("globalHANDLEArray initialized: "+globalHandleArray.length+","+globa
 			//make the calculations base on old array, so it won't evolve in the same calc turn
 			var newGlobalTypeArray = [];
 			
-	
+			
 			//get the most surrounding elem then make 25% chance to change to that 
 			for(var i = 0; i < globalTypeArray.length;i++){
+				newGlobalTypeArray.push(new Array());
 				for(var j = 0;j < globalTypeArray[i].length;j++){
 					var surroundingType = mostSurroundingForeignElemType(j,i);
 					//50% chance to change
 					if(surroundingType !== -1 && Math.floor((Math.random() * 4)) === 0){
 	console.log("change happened to type "+surroundingType);
-						globalTypeArray[i][j] = surroundingType;
+						newGlobalTypeArray[i][j] = surroundingType;
 					}
-							
+					else
+						newGlobalTypeArray[i][j] = globalTypeArray[i][j];	
 				}
 			}
 			console.log("calculate compelete!");
+			globalTypeArray = newGlobalTypeArray;
 			drawFrame = true;
 			calculateFrame = false;
 		}
