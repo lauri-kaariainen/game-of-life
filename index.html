@@ -163,7 +163,7 @@ console.log("globalHANDLEArray initialized: "+globalHandleArray.length+","+globa
 		if(PIXI.TextureCache.hasOwnProperty(i))
 			console.log(PIXI.TextureCache[i].valid);
 	
-	console.log(checkStatus(0,0));
+	
 /*	for(var i = 0; i < globalHandleArray.length;i++){
 		if(globalHandleArray[i])
 			globalHandleArray[i].destroy(false);
@@ -186,7 +186,10 @@ console.log("globalHANDLEArray initialized: "+globalHandleArray.length+","+globa
 			console.log(PIXI.TextureCache[i].valid);
 	console.log(globalHandleArray);
 	console.log(getRandomElem());
+	var calculateFrame = false;
+	var drawFrame = true;
 	function animate() {
+		
 		stats.begin();
 		//console.log(globalHandleArray[0][0]);
 		//console.log(stage);
@@ -194,29 +197,47 @@ console.log("globalHANDLEArray initialized: "+globalHandleArray.length+","+globa
 		//console.log(generationCounter);
 		//console.log(globalHandleArray);
 		stage.removeChildren(0,WIDTH*HEIGHT/400);
-			
-	
-		for(var i = 0; i < globalTypeArray.length;i++){
-			for(var j = 0;j < globalTypeArray[i].length;j++){
-				switch(globalTypeArray[i][j]){
-					case 0:
-						globalHandleArray[i][j] = addTextureToPoint(20*j,20*i,ES);
-						break;
-					case 1:
-						globalHandleArray[i][j] = addTextureToPoint(20*j,20*i,FEDORA);
-						break;
-					case 2:
-						globalHandleArray[i][j]= addTextureToPoint(20*j,20*i,PONY);
-						break;
-					case 3:
-						globalHandleArray[i][j] = addTextureToPoint(20*j,20*i,CHAN);
-						break;
-					default: 
+		
+		if(calculateFrame){
+			//get array of surrounding elems (typenums were 0-4), count which foreign elem there was most, then make 50% chance to change to that 
+			for(var i = 0; i < globalTypeArray.length;i++){
+				for(var j = 0;j < globalTypeArray[i].length;j++){
+					//get surrounding elems and filter same type away
+					var checkArrayFiltered = mostSurroundingForeignElemType(j,i)
 						
-						throw new Error("error with globalArray:"+globalTypeArray[i][j] +","+ i +","+ j);
-						break;
 				}
 			}
+
+			drawFrame = true;
+			calculateFrame = false;
+		}
+		else if(drawFrame){
+		
+			for(var i = 0; i < globalTypeArray.length;i++){
+				for(var j = 0;j < globalTypeArray[i].length;j++){
+					switch(globalTypeArray[i][j]){
+						case 0:
+							globalHandleArray[i][j] = addTextureToPoint(20*j,20*i,ES);
+							break;
+						case 1:
+							globalHandleArray[i][j] = addTextureToPoint(20*j,20*i,FEDORA);
+							break;
+						case 2:
+							globalHandleArray[i][j]= addTextureToPoint(20*j,20*i,PONY);
+							break;
+						case 3:
+							globalHandleArray[i][j] = addTextureToPoint(20*j,20*i,CHAN);
+							break;
+						default: 
+							
+							throw new Error("error with globalArray:"+globalTypeArray[i][j] +","+ i +","+ j);
+							break;
+					}
+				}
+			}
+			 renderer.render(stage);  
+			 drawFrame = false;
+			 calculateFrame = true;
 		}
 		
 	
@@ -232,9 +253,9 @@ console.log("globalHANDLEArray initialized: "+globalHandleArray.length+","+globa
 	    // console.log(document.getElementById("revs").value *Math.PI/2000);
 	    //console.log(plane.rotation);
 	    // render the stage
-		requestAnimFrame( animate );
 		generationCounter++;
-	    renderer.render(stage);  
+		requestAnimFrame( animate );
+	   
 		stats.end();
 	}
 	
@@ -286,15 +307,44 @@ console.log("globalHANDLEArray initialized: "+globalHandleArray.length+","+globa
 		
 	}
 	/**
-	* return the number the result should change to
-	* gets 50% chance to change to the neighbor with which it has the most border
-	*
+	* return the elem type that there is most surrounding the point
+	* if none surrounding it, return -1
+	* 
 	*/
-	function checkStatus(x,y){
+	function mostSurroundingForeignElemType(x,y){
+	
+		
+		
+	
 	
 		var checkArray = checkUpperElems(x,y).concat(checkSideElems(x,y)).concat(checkLowerElems(x,y));
-		console.log(checkArray);
-		return checkArray;
+		//console.log(checkArray);
+		
+		
+		//get array of surrounding elems (typenums were 0-4), count which foreign elem there was most
+		for(var i = 0; i < globalTypeArray.length;i++){
+			for(var j = 0;j < globalTypeArray[i].length;j++){
+				//get surrounding elems and filter same type away
+				var checkArrayFiltered = checkStatus(j,i)
+					.filter(function(elem){elem !== globalTypeArray[j][i]});
+				//change to obj for easier counting (thank you ECMA5 for not supporting functional ways)
+				var countObj = {};
+				for(var i = 0; i < checkArray.length;i++) obj[checkArray[i]] = obj[checkArray[i]] + 1 || 1;
+				var countArray = [];
+				for(var i in countObj){
+					if(countObj.hasOwnProperty(i){
+						 countArray.push({type:i,amount:countObj[i]});
+					}
+				}
+				//sort to get the most amount
+				countArray.sort(function(a,b){return b.amount - a.amount});
+				
+			}
+		}
+		if(countArray.length > 0)
+			return countArray[0];
+		else
+			return -1;
 		
 		function checkUpperElems(x,y){
 			var returnable = [];
