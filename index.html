@@ -125,7 +125,7 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 		document.getElementsByTagName('canvas')[0].style.height = window.innerHeight+"px";
 	}
 
-	
+	/*
 	//set new textures
 	//console.log(PIXI.TextureCache);
 	for(var i = 0; i < globalTypeArray.length;i++){
@@ -151,7 +151,7 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 	}
 	
 	renderer.render(stage);  
-	
+	*/
 	//start animation loop 
 	requestAnimFrame( animate );
 
@@ -164,7 +164,11 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 		
 		stats.begin();
 		
-		
+		//if we are at first frame, freeze for a while to let user see the start situation
+		if(generationCounter < 120){
+			calculateFrame = false;
+			drawFrame = true;
+		}
 		
 		if(calculateFrame){
 			//make the calculations base on old array, so it won't evolve in the same calc turn
@@ -229,8 +233,10 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 	
 	  
 		generationCounter++;
+		
 		requestAnimFrame( animate );
-	   
+		
+		
 		stats.end();
 	}
 	
