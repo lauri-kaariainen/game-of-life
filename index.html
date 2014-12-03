@@ -110,12 +110,20 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 	var stage = new PIXI.Stage(0x555555);
 
 	// create a renderer instance
-	//var renderer = new PIXI.WebGLRenderer(400, 300);
 	var renderer = new PIXI.autoDetectRenderer(WIDTH, HEIGHT);
 
+	renderer.view.style.height = window.innerHeight+"px";
+	
 	// add the renderer view element to the DOM
 	document.body.appendChild(renderer.view);
-
+	
+	
+	
+	
+	//set the canvas stretchheight
+	window.onresize = function() {
+		document.getElementsByTagName('canvas')[0].style.height = window.innerHeight+"px";
+	}
 
 	
 	//set new textures
@@ -143,11 +151,10 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 	}
 	
 	renderer.render(stage);  
+	
+	//start animation loop 
+	requestAnimFrame( animate );
 
-	//start animation loop after a brief pause
-	setTimeout(function(){
-		requestAnimFrame( animate );
-		},1000);
 
 
 
