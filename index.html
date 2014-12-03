@@ -125,33 +125,7 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 		document.getElementsByTagName('canvas')[0].style.height = window.innerHeight+"px";
 	}
 
-	/*
-	//set new textures
-	//console.log(PIXI.TextureCache);
-	for(var i = 0; i < globalTypeArray.length;i++){
-		for(var j = 0;j < globalTypeArray[i].length;j++){
-			switch(globalTypeArray[i][j]){
-				case 0:
-					stage.getChildIndex(addAndReturnTextureToPoint(20*j,20*i,RED));
-					break;
-				case 1:
-					stage.getChildIndex(addAndReturnTextureToPoint(20*j,20*i,GREEN));
-					break;
-				case 2:
-					stage.getChildIndex(addAndReturnTextureToPoint(20*j,20*i,BLUE));
-					break;
-				case 3:
-					stage.getChildIndex(addAndReturnTextureToPoint(20*j,20*i,YELLOW));
-					break;
-				default: 
-					throw new Error("error with globalArray:"+globalTypeArray[i][j] +","+ i +","+ j);
-					break;
-			}
-		}
-	}
 	
-	renderer.render(stage);  
-	*/
 	//start animation loop 
 	requestAnimFrame( animate );
 
