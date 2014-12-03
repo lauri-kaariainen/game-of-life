@@ -154,16 +154,12 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 	var calculateFrame = false;
 	var drawFrame = true;
 	function animate() {
-		//if(drawFrame)
-			//console.log("drawFrame");
-		//if(calculateFrame)
-			//console.log("calcFrame");
+		
 		stats.begin();
 		
 		
 		
 		if(calculateFrame){
-	//console.log("going to calculate..");
 			//make the calculations base on old array, so it won't evolve in the same calc turn
 			var newGlobalTypeArray = [];
 			
@@ -224,17 +220,7 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 		
 	
 	
-	    ////console.log(beta);
-	//	if(beta){
-	//		plane.rotation = -beta * Math.PI/90/1.7;
-
-	//	}
-	//   	rotorRotation += document.getElementById("revs").value *Math.PI/2000;
-	 //  	rotor.rotation = plane.rotation + rotorRotation;
-	    
-	    // //console.log(document.getElementById("revs").value *Math.PI/2000);
-	    ////console.log(plane.rotation);
-	    // render the stage
+	  
 		generationCounter++;
 		requestAnimFrame( animate );
 	   
@@ -279,12 +265,12 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 		//no foreign elements nearby
 		if(checkArrayFiltered.length === 0)
 			return -1;
-		//console.log(checkArrayFiltered);
+		
 		
 		//change to obj for easier counting (thank you ECMA5 for not supporting functional ways)
 		var countObj = {};
 		for(var i = 0; i < checkArray.length;i++) countObj[checkArray[i]] = countObj[checkArray[i]] + 1 || 1;
-		//console.log(countObj);
+	//console.log(countObj);
 		var countArray = [];
 		for(var i in countObj){
 			if(countObj.hasOwnProperty(i)){
@@ -297,7 +283,7 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 		
 		//lets randomize the winning element, so that the elementtype with the most blocks around gets best chance 
 		var contestantAmount = countArray.reduce(function(a,b){return a+b.amount},0);
-	       //console.log(contestantAmount);
+   //console.log(contestantAmount);
 		var randomVal = Math.floor(Math.random()*contestantAmount)+1;
 		for(var i = 0; i < countArray.length;i++){
 			randomVal = randomVal - countArray[i].amount;
@@ -308,7 +294,7 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 		}
 		
 		
-		//	return parseInt(countArray[0].type);
+		
 		
 		// there was no surrounding foreign elements
 		return -1;
@@ -382,43 +368,6 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 	}
 	
 	</script>
-	<script>
-	/*
-	{
-		var gamma,alpha,beta;
-		gamma = alpha = beta = 0;
-		var lastUpdate = 0;
-		// Listen for the deviceorientation event and handle the raw data
-		window.addEventListener('deviceorientation', function(eventData) {
-			var time = new Date();
-			if (time - lastUpdate <= 70)
-				return;
-			else
-				lastUpdate = time;
-			// gamma is the left-to-right tilt in degrees, where right is positive
-			//gamma = eventData.gamma;
-
-			// beta is the front-to-back tilt in degrees, where front is positive
-			beta = eventData.beta;
-			
-			//TODO: REMOVE
-			//$('#name').html(beta*5+"");
-			
-			//beta is 0-90 when tilting to right
-			//beta is -90-0 when tilting to left
-			
-
-		// alpha is the compass direction the device is facing in degrees
-			//alpha = eventData.alpha
-			
-			//value passed to rotateWheel must be positive to prevent graphical bugs
-			
-		
-		}, true);
-	}
-	*/
-
-
-	</script>
+	
 	</body>
 </html>
