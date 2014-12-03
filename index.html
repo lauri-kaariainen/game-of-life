@@ -59,14 +59,14 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 
 	  
 
-	const RED = 'red.png';
-	const BLUE = 'blue.png';
-	const GREEN = 'green.png';
-	const YELLOW = 'yellow.png';
+	var RED = 'red.png';
+	var BLUE = 'blue.png';
+	var GREEN = 'green.png';
+	var YELLOW = 'yellow.png';
 	
 	//renderer size
-	const WIDTH = 600;
-	const HEIGHT = 400;
+	var WIDTH = 600;
+	var HEIGHT = 400;
 	
 	var generationCounter = 0;
 
@@ -123,16 +123,16 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 		for(var j = 0;j < globalTypeArray[i].length;j++){
 			switch(globalTypeArray[i][j]){
 				case 0:
-					stage.getChildIndex(addTextureToPoint(20*j,20*i,RED));
+					stage.getChildIndex(addAndReturnTextureToPoint(20*j,20*i,RED));
 					break;
 				case 1:
-					stage.getChildIndex(addTextureToPoint(20*j,20*i,GREEN));
+					stage.getChildIndex(addAndReturnTextureToPoint(20*j,20*i,GREEN));
 					break;
 				case 2:
-					stage.getChildIndex(addTextureToPoint(20*j,20*i,BLUE));
+					stage.getChildIndex(addAndReturnTextureToPoint(20*j,20*i,BLUE));
 					break;
 				case 3:
-					stage.getChildIndex(addTextureToPoint(20*j,20*i,YELLOW));
+					stage.getChildIndex(addAndReturnTextureToPoint(20*j,20*i,YELLOW));
 					break;
 				default: 
 					throw new Error("error with globalArray:"+globalTypeArray[i][j] +","+ i +","+ j);
@@ -197,16 +197,16 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 				for(var j = 0;j < globalTypeArray[i].length;j++){
 					switch(globalTypeArray[i][j]){
 						case 0:
-							addTextureToPoint(20*j,20*i,RED);
+							addAndReturnTextureToPoint(20*j,20*i,RED);
 							break;
 						case 1:
-							addTextureToPoint(20*j,20*i,GREEN);
+							addAndReturnTextureToPoint(20*j,20*i,GREEN);
 							break;
 						case 2:
-							addTextureToPoint(20*j,20*i,BLUE);
+							addAndReturnTextureToPoint(20*j,20*i,BLUE);
 							break;
 						case 3:
-							addTextureToPoint(20*j,20*i,YELLOW);
+							addAndReturnTextureToPoint(20*j,20*i,YELLOW);
 							break;
 						default: 
 							
@@ -243,15 +243,15 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 	/**
 	* 
 	*takes in filename (atleast png/base64 png)
-	*adds sprite to point, hope you made sure that it is in the view
-	*returns handle to sprite
+	*adds sprite to point, hope you made sure that it's inside bounds
+	*
 	*/
-	function addTextureToPoint(x,y,filename){
+	function addAndReturnTextureToPoint(x,y,filename){
 		// create a texture from an image path
 		var texture = PIXI.Texture.fromImage(filename);
 		// create a new Sprite using the texture
 		var sprite = new PIXI.Sprite(texture);
-
+		
 		// center the sprites anchor point
 		sprite.anchor.x = 0.5;
 		sprite.anchor.y = 0.5;
@@ -259,14 +259,15 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 		// move the sprite t the requested point
 		sprite.position.x = x;
 		sprite.position.y = y;
-
+		sprite.width = 20;
+		
 		return stage.addChild(sprite);
 		
 	}
 	
 	/**
 	* return the elem type that wins the point
-	* if none surrounding it, return -1
+	* if none foreign ones surrounding it, return -1
 	* 
 	*/
 	function calcElemType(x,y){
