@@ -263,30 +263,7 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 		return stage.addChild(sprite);
 		
 	}
-	/**
-	* 
-	*takes in filename (atleast png)
-	*adds sprite to center of scene
-	*returns handle to sprite
-	*/
-	function addTextureToCenter(filename){
-		// create a texture from an image path
-		var texture = PIXI.Texture.fromImage(filename);
-		// create a new Sprite using the texture
-		var sprite = new PIXI.Sprite(texture);
-
-		// center the sprites anchor point
-		sprite.anchor.x = 0.5;
-		sprite.anchor.y = 0.5;
-	//console.log(renderer);
-		// move the sprite t the center of the screen
-		sprite.position.x = renderer.width/2;
-		sprite.position.y = renderer.height/2;
- 
-		
-		return stage.addChild(sprite);
-		
-	}
+	
 	/**
 	* return the elem type that wins the point
 	* if none surrounding it, return -1
