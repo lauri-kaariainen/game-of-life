@@ -53,7 +53,7 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 <body>
 	<div id="fps">
 	</div>
-	<!-- <input id="revs" type="range" min="0" max="1000" step="1" /> -->
+	
 	
 	<script>
 
@@ -76,15 +76,15 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 	stats.domElement.style.position = "absolute";
 	stats.domElement.style.top = "0px";
 
-	//create 2 global matrices for game of life!
-	//first one indicates the type of each element, second one has their handles
+	//create a global matrix for game of life!
+	//it indicates the type of each element
 	/*
 	numbers 0-4 indicate which type each element is:
 	0 - RED
 	1 - BLUE
 	2 - GREEN
 	3 - YELLOW
-	elements are like this: 
+	elements are placed like this: 
 	0|1
 	2|3
 	*/
@@ -104,15 +104,6 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 					globalTypeArray[i].push(3);
 		}
 	}
-	var globalHandleArray = new Array();
-	for(var i = 0;i < HEIGHT/20;i++){
-		globalHandleArray.push(new Array());
-		for(var j = 0;j < WIDTH/20;j++){
-			globalHandleArray[i].push(null);
-		}
-	}
-//console.log("globalTYPEArray initialized: "+globalTypeArray.length+","+globalTypeArray[0].length);
-//console.log("globalHANDLEArray initialized: "+globalHandleArray.length+","+globalHandleArray[0].length);
 
 	// create an new instance of a pixi stage
 	var stage = new PIXI.Stage(0x555555);
@@ -124,9 +115,6 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 	// add the renderer view element to the DOM
 	document.body.appendChild(renderer.view);
 
-	//start animation loop
-	requestAnimFrame( animate );
-
 
 	
 	//set new textures
@@ -135,16 +123,16 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 		for(var j = 0;j < globalTypeArray[i].length;j++){
 			switch(globalTypeArray[i][j]){
 				case 0:
-					globalHandleArray[i][j] = stage.getChildIndex(addTextureToPoint(20*j,20*i,RED));
+					stage.getChildIndex(addTextureToPoint(20*j,20*i,RED));
 					break;
 				case 1:
-					globalHandleArray[i][j] = stage.getChildIndex(addTextureToPoint(20*j,20*i,GREEN));
+					stage.getChildIndex(addTextureToPoint(20*j,20*i,GREEN));
 					break;
 				case 2:
-					globalHandleArray[i][j]= stage.getChildIndex(addTextureToPoint(20*j,20*i,YELLOW));
+					stage.getChildIndex(addTextureToPoint(20*j,20*i,BLUE));
 					break;
 				case 3:
-					globalHandleArray[i][j] = stage.getChildIndex(addTextureToPoint(20*j,20*i,BLUE));
+					stage.getChildIndex(addTextureToPoint(20*j,20*i,YELLOW));
 					break;
 				default: 
 					throw new Error("error with globalArray:"+globalTypeArray[i][j] +","+ i +","+ j);
@@ -153,6 +141,14 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 		}
 	}
 	
+	renderer.render(stage);  
+
+	//start animation loop after a brief pause
+	setTimeout(function(){
+		requestAnimFrame( animate );
+		},1000);
+
+
 
 	var calculateFrame = false;
 	var drawFrame = true;
@@ -201,16 +197,16 @@ a+"px",m=b,r=0);return b},update:function(){l=this.end()}}};
 				for(var j = 0;j < globalTypeArray[i].length;j++){
 					switch(globalTypeArray[i][j]){
 						case 0:
-							globalHandleArray[i][j] = addTextureToPoint(20*j,20*i,RED);
+							addTextureToPoint(20*j,20*i,RED);
 							break;
 						case 1:
-							globalHandleArray[i][j] = addTextureToPoint(20*j,20*i,GREEN);
+							addTextureToPoint(20*j,20*i,GREEN);
 							break;
 						case 2:
-							globalHandleArray[i][j]= addTextureToPoint(20*j,20*i,BLUE);
+							addTextureToPoint(20*j,20*i,BLUE);
 							break;
 						case 3:
-							globalHandleArray[i][j] = addTextureToPoint(20*j,20*i,YELLOW);
+							addTextureToPoint(20*j,20*i,YELLOW);
 							break;
 						default: 
 							
